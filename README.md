@@ -7,8 +7,6 @@ Static site served at https://ali.cloudordinate.com
 - `assets/projects/<slug>.jpg` — project previews (apogeu, moodzy, tlogistikz, tradeandtrade, expships, expresscon, purplestore, gccpl). Images from cloudordinate.com; missing ones fall back to a live screenshot.
 
 ## Deploy
-1. DNS: `A ali.cloudordinate.com → 139.185.40.101`
-2. Oracle Cloud security list: allow TCP 80/443
-3. One-time VPS setup (run inside the cloned repo folder): `scp -i <key> deploy/setup-vps.sh deploy/ali.cloudordinate.com.conf opc@139.185.40.101:~` then `ssh -i <key> opc@139.185.40.101 "bash setup-vps.sh"`
-4. GitHub repo secret `VPS_SSH_KEY` = contents of the private key
-5. Push to `main` (or run the workflow manually) → `.github/workflows/deploy.yml`
+- Ports 80/443 are owned by the `n8n-setup-caddy-1` container. Caddy terminates HTTPS and proxies `ali.cloudordinate.com` to host nginx on `:8088`. The block is in `deploy/Caddyfile.snippet`, appended to `/home/opc/n8n-setup/caddy/Caddyfile`.
+- One-time VPS setup: `deploy/setup-vps.sh`.
+- GitHub secret `VPS_SSH_KEY` = private key. A push to `main` runs `.github/workflows/deploy.yml`.

@@ -1,0 +1,6 @@
+
+# Ali Ahmed portfolio — host nginx on port 8088 (172.18.0.1 = n8n-setup_default gateway)
+ali.cloudordinate.com {
+	encode gzip
+	reverse_proxy 172.18.0.1:8088
+}
