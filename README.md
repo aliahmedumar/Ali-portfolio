@@ -4,7 +4,7 @@ Static site served at https://ali.cloudordinate.com
 
 - `index.html` — the site
 - `assets/ali.png` — profile photo
-- `assets/projects/<slug>.jpg` — project previews (apogeu, moodzy, tlogistikz, tradeandtrade, expships, expresscon, purplestore, gccpl). Missing files fall back to a live screenshot.
+- `assets/projects/<slug>.jpg` — project previews (apogeu, moodzy, tlogistikz, tradeandtrade, expships, expresscon, purplestore, gccpl). Images from cloudordinate.com; missing ones fall back to a live screenshot.
 
 ## Deploy
 1. DNS: `A ali.cloudordinate.com → 139.185.40.101`
