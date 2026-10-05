@@ -34,7 +34,7 @@ jobs:
       - name: Upload site
         run: |
           rsync -az --delete -e "ssh -i ~/.ssh/deploy_key" \
-            --include='index.html' --include='assets/***' --exclude='*' \
+            --include='index.html' --include='favicon.ico' --include='site.webmanifest' --include='assets/***' --exclude='*' \
             ./ "$VPS_USER@$VPS_HOST:~/site-staging/"
 
       - name: Publish

@@ -1,1060 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ali Ahmed — Software Developer</title>
-<meta name="description" content="Ali Ahmed — Software Developer at CloudOrdinate and Skimmy. Live software across logistics, commerce, and wellness." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ali Ahmed</title>
+<meta name="description" content="Ali Ahmed. Voice AI Engineer at Skimmy AI and Project Lead Developer at CloudOrdinate.">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#F4F5F7">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f5f1ea;
-    --bg-elev: #ffffff;
-    --bg-deep: #ebe6dc;
-    --ink: #1a1a1a;
-    --ink-dim: #5c5c5c;
-    --ink-faint: #a8a39a;
-    --line: #d8d2c5;
-    --line-soft: #e8e3d8;
-    --accent: #ff5b1f;
-    --accent-deep: #c4400e;
-    --accent-soft: #fff1ea;
-    --term-bg: #1a1814;
-    --term-ink: #f5f1ea;
-    --serif: 'Fraunces', Georgia, serif;
-    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --bg: #F4F5F7;
+    --surface: #FFFFFF;
+    --ink: #121417;
+    --muted: #5C6370;
+    --line: #DADDE2;
+    --accent: #D93A22;
+    --head: 'Bricolage Grotesque', Georgia, serif;
+    --body: 'IBM Plex Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0F1113;
+      --surface: #171A1D;
+      --ink: #ECEEF1;
+      --muted: #9AA1AC;
+      --line: #2A2E34;
+      --accent: #FF5A3D;
+    }
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--ink);
-    font-family: var(--mono);
-    font-size: 14px;
-    line-height: 1.6;
-    overflow-x: hidden;
-    background-image:
-      linear-gradient(rgba(0,0,0,0.022) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.022) 1px, transparent 1px);
-    background-size: 48px 48px;
+    font: 15px/1.6 var(--body);
+    -webkit-font-smoothing: antialiased;
   }
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    pointer-events: none; z-index: 100;
-    opacity: 0.06;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    mix-blend-mode: multiply;
-  }
-  ::selection { background: var(--accent); color: #fff; }
   a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    padding: 18px 40px;
-    display: flex; justify-content: space-between; align-items: center;
-    z-index: 50;
-    background: rgba(245,241,234,0.85);
-    backdrop-filter: blur(14px);
+  header {
     border-bottom: 1px solid var(--line);
-    font-size: 12px;
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg);
   }
-  nav .brand { display: flex; align-items: center; gap: 10px; }
-  nav .brand-dot {
-    width: 8px; height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 0 12px rgba(255,91,31,0.5);
-    animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.85); }
-  }
-  nav .brand-text { letter-spacing: 0.05em; color: var(--ink); }
-  nav .links { display: flex; gap: 28px; }
-  nav .links a { color: var(--ink-dim); transition: color 0.2s; }
-  nav .links a:hover { color: var(--accent); }
-  nav .status { color: var(--accent-deep); font-size: 11px; letter-spacing: 0.1em; }
+  header .wrap { display: flex; justify-content: space-between; align-items: center; height: 56px; }
+  header .name { font-family: var(--head); font-weight: 700; font-size: 17px; }
+  header nav { display: flex; gap: 24px; font-size: 14px; color: var(--muted); }
+  header nav a:hover { color: var(--ink); }
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    padding: 140px 40px 80px;
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
+  .hero { padding: 44px 0 36px; display: flex; gap: 28px; align-items: center; }
+  .hero img { width: 96px; height: 96px; border-radius: 50%; flex: none; object-fit: cover; }
+  h1 { font-family: var(--head); font-weight: 700; font-size: clamp(36px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.02em; }
+  .role { font-size: 17px; font-weight: 500; margin-top: 8px; }
+  .sub { color: var(--muted); max-width: 620px; margin-top: 6px; }
+  .cta {
+    display: inline-block; margin-top: 20px;
+    background: var(--accent); color: #fff;
+    padding: 10px 20px; font-weight: 500; font-size: 14px;
+    border-radius: 2px;
   }
-  .hero-inner {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 80px;
-    align-items: center;
-    min-height: calc(100vh - 220px);
-  }
-  .hero-content { min-width: 0; }
+  .cta:hover { filter: brightness(1.08); }
 
-  .hero-tag {
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.2em;
-    margin-bottom: 32px;
-    display: flex; align-items: center; gap: 14px;
-    opacity: 0; animation: fadeUp 0.8s ease forwards;
-  }
-  .hero-tag::before {
-    content: ''; width: 36px; height: 1px; background: var(--accent);
-  }
-  h1 {
-    font-family: var(--serif);
-    font-weight: 300;
-    font-size: clamp(44px, 6.5vw, 92px);
-    line-height: 0.98;
-    letter-spacing: -0.04em;
-    margin-bottom: 28px;
-    color: var(--ink);
-    opacity: 0; animation: fadeUp 0.8s ease 0.1s forwards;
-  }
-  h1 em { font-style: italic; font-weight: 400; color: var(--accent); }
-  h1 .slash { color: var(--ink-faint); font-weight: 300; margin: 0 0.1em; }
-  .hero-sub {
-    font-size: 15px; color: var(--ink-dim);
-    max-width: 580px; margin-bottom: 40px;
-    line-height: 1.7;
-    opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
-  }
-  .hero-sub strong { color: var(--ink); font-weight: 500; }
-  .hero-meta {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    border-top: 1px solid var(--line);
-    padding-top: 24px;
-    max-width: 640px;
-    opacity: 0; animation: fadeUp 0.8s ease 0.3s forwards;
-  }
-  .meta-item .label {
-    font-size: 10px; color: var(--ink-faint);
-    letter-spacing: 0.15em; margin-bottom: 6px;
-  }
-  .meta-item .value { font-size: 12px; color: var(--ink); }
-  .meta-item .value .dot {
-    display: inline-block;
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%; margin-right: 6px;
-    vertical-align: middle;
-  }
-  .cta-row {
-    display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap;
-    opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards;
-  }
-  .btn {
-    padding: 14px 28px;
-    font-family: var(--mono);
-    font-size: 12px; letter-spacing: 0.1em;
-    border: 1px solid var(--ink);
-    background: transparent; color: var(--ink);
-    cursor: pointer;
-    transition: all 0.25s ease;
-    display: inline-flex; align-items: center; gap: 10px;
-  }
-  .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .btn.primary:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-2px); }
-  .btn:hover { background: var(--ink); color: var(--bg); transform: translateY(-2px); }
-  .btn .arrow { transition: transform 0.25s; }
-  .btn:hover .arrow { transform: translate(3px, -3px); }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  section { padding: 32px 0; border-top: 1px solid var(--line); }
+  h2 { font-family: var(--head); font-weight: 700; font-size: 26px; letter-spacing: -0.01em; margin-bottom: 16px; }
 
-  /* PORTRAIT */
-  .portrait-wrap {
-    position: relative;
-    width: 100%;
-    max-width: 380px;
-    aspect-ratio: 1 / 1;
-    margin-left: auto;
-    opacity: 0;
-    animation: fadeUp 0.9s ease 0.25s forwards;
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+  .card { grid-column: span 3; display: block; }
+  .card.wide { grid-column: span 6; }
+  .card.wide .shot { aspect-ratio: 2 / 1; }
+  .shot {
+    aspect-ratio: 16 / 10; overflow: hidden;
+    background: var(--surface); border: 1px solid var(--line);
   }
-  .portrait-wrap::before {
-    content: '';
-    position: absolute; inset: 0;
-    border: 1px solid var(--accent);
-    border-radius: 50%;
-    transform: translate(18px, 18px);
-    transition: transform 0.5s cubic-bezier(.22,.61,.36,1);
+  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .shot.noshot {
+    background: #121417; color: #F4F5F7; border-color: #121417;
+    display: flex; align-items: flex-end; padding: 18px;
+    font-family: var(--head); font-weight: 700; font-size: 28px;
   }
-  .portrait-wrap::after {
-    content: '';
-    position: absolute;
-    top: -14px; left: -14px;
-    width: 28px; height: 28px;
-    border-top: 1px solid var(--ink);
-    border-left: 1px solid var(--ink);
-    pointer-events: none;
-  }
-  .portrait-frame {
-    position: relative;
-    width: 100%; height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
-    background: var(--bg-deep);
-    box-shadow:
-      0 30px 60px -20px rgba(26,24,20,0.25),
-      0 12px 24px -10px rgba(26,24,20,0.15);
-    z-index: 2;
-  }
-  .portrait-frame img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-    transition: transform 0.7s cubic-bezier(.22,.61,.36,1);
-  }
-  .portrait-wrap:hover::before { transform: translate(8px, 8px); }
-  .portrait-wrap:hover .portrait-frame img { transform: scale(1.04); }
+  .card h3 { font-family: var(--head); font-weight: 500; font-size: 18px; margin-top: 10px; line-height: 1.3; }
+  .card p { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .card .meta { font-family: var(--mono); font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+  a.card:hover h3 { color: var(--accent); }
+  a.card:hover .shot { border-color: var(--accent); }
 
-  .portrait-label {
-    position: absolute;
-    bottom: 22px; left: -20px;
-    background: var(--ink);
-    color: var(--bg);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    padding: 9px 14px;
-    z-index: 3;
-    display: flex; align-items: center; gap: 8px;
-    box-shadow: 0 8px 20px -8px rgba(26,24,20,0.3);
-  }
-  .portrait-label .pulse-dot {
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--accent);
-    animation: pulse 2s ease-in-out infinite;
-  }
+  .stack { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 48px; }
+  .stack div { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .stack dt { width: 110px; flex: none; color: var(--muted); font-size: 14px; }
+  .stack dd { font-weight: 500; }
 
-  /* SECTIONS */
-  section.block {
-    padding: 120px 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
-  }
-  .section-head {
-    display: flex; align-items: baseline; gap: 24px;
-    margin-bottom: 64px;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 24px;
-  }
-  .section-num { font-size: 12px; color: var(--accent); letter-spacing: 0.1em; }
-  .section-title {
-    font-family: var(--serif);
-    font-size: clamp(32px, 4.5vw, 56px);
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    line-height: 1;
-    color: var(--ink);
-  }
-  .section-title em { font-style: italic; color: var(--accent); }
+  .exp { display: grid; grid-template-columns: 170px 1fr; gap: 6px 24px; }
+  .exp .when { color: var(--muted); font-family: var(--mono); font-size: 13px; padding-top: 3px; }
+  .exp h3 { font-family: var(--head); font-weight: 500; font-size: 18px; }
+  .exp h3 span { color: var(--muted); font-weight: 500; }
+  .exp p { color: var(--muted); margin-bottom: 12px; max-width: 680px; }
 
-  /* PROBLEM */
-  .problem-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
-  .problem-text p {
-    font-family: var(--serif);
-    font-size: 22px; line-height: 1.5;
-    color: var(--ink-dim);
-    margin-bottom: 20px;
-    font-weight: 300;
-  }
-  .problem-text p strong { color: var(--ink); font-weight: 400; font-style: italic; }
-  .problem-text p .highlight {
-    background: linear-gradient(180deg, transparent 60%, rgba(255,91,31,0.25) 60%);
-    color: var(--ink);
-  }
-  .terminal {
-    background: var(--term-bg);
-    border-radius: 4px;
-    overflow: hidden;
-    font-size: 12px;
-    box-shadow: 0 30px 60px -20px rgba(26,24,20,0.35), 0 12px 24px -10px rgba(26,24,20,0.2);
-  }
-  .terminal-head {
-    background: #100e0b;
-    padding: 10px 14px;
-    border-bottom: 1px solid #2a2620;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .terminal-dots { display: flex; gap: 6px; }
-  .terminal-dots span { width: 10px; height: 10px; border-radius: 50%; }
-  .terminal-dots span:nth-child(1) { background: #ff5f57; }
-  .terminal-dots span:nth-child(2) { background: #febc2e; }
-  .terminal-dots span:nth-child(3) { background: #28c840; }
-  .terminal-title { margin-left: 12px; color: #807a6f; font-size: 11px; }
-  .terminal-body { padding: 20px; line-height: 1.9; color: var(--term-ink); }
-  .term-line { color: #c9c3b5; }
-  .term-cmd { color: var(--accent); }
-  .term-out { color: #807a6f; }
-  .term-ok { color: #7dd87d; }
-  .term-cursor::after { content: '▊'; color: var(--accent); animation: blink 1s infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
+  blockquote { border-left: 3px solid var(--accent); padding-left: 20px; max-width: 760px; }
+  blockquote p { font-size: 18px; line-height: 1.55; }
+  blockquote footer { margin-top: 10px; font-size: 14px; color: var(--muted); }
+  blockquote footer strong { color: var(--ink); font-weight: 500; }
 
-  /* SERVICES */
-  .services {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-    background: var(--bg-elev);
-  }
-  .service {
-    padding: 40px;
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    transition: background 0.3s;
-    position: relative;
-  }
-  .service:hover { background: var(--accent-soft); }
-  .service:hover .service-arrow { opacity: 1; transform: translate(0,0); }
-  .service:hover .service-title { color: var(--accent); }
-  .service-num { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.15em; margin-bottom: 16px; }
-  .service-title {
-    font-family: var(--serif);
-    font-size: 26px; font-weight: 400;
-    margin-bottom: 14px;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    transition: color 0.3s;
-  }
-  .service-desc { color: var(--ink-dim); font-size: 13px; line-height: 1.7; }
-  .service-arrow {
-    position: absolute; top: 40px; right: 40px;
-    color: var(--accent);
-    opacity: 0; transform: translate(-8px, 8px);
-    transition: all 0.3s ease;
-    font-size: 18px;
-  }
+  .contact p { color: var(--muted); }
+  .links { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 14px; font-weight: 500; }
+  .links a { border-bottom: 1px solid var(--line); }
+  .links a:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* PROJECTS */
-  .projects { display: flex; flex-direction: column; }
-  .project {
-    display: grid;
-    grid-template-columns: 60px 1fr 240px 100px;
-    gap: 32px; padding: 32px 0;
-    border-bottom: 1px solid var(--line);
-    align-items: center;
-    transition: all 0.3s;
-    cursor: pointer;
-  }
-  .project:hover { padding-left: 16px; }
-  .project:hover .proj-title { color: var(--accent); }
-  .project:hover .proj-arrow { color: var(--accent); transform: translateX(8px); }
-  .project:first-child { border-top: 1px solid var(--line); }
-  .proj-num { color: var(--ink-faint); font-size: 12px; }
-  .proj-title {
-    font-family: var(--serif);
-    font-size: 26px; font-weight: 400;
-    color: var(--ink);
-    transition: color 0.3s;
-  }
-  .proj-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-  .tag {
-    font-size: 10px; padding: 4px 10px;
-    border: 1px solid var(--line);
-    background: var(--bg-elev);
-    color: var(--ink-dim);
-    letter-spacing: 0.05em;
-  }
-  .proj-arrow { text-align: right; color: var(--ink-faint); font-size: 18px; transition: all 0.3s; }
+  .foot { padding: 20px 0 32px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
 
-  /* STACK */
-  .stack-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
+  @media (max-width: 900px) {
+    .card, .card.wide { grid-column: span 6; }
+    .stack { grid-template-columns: 1fr; }
   }
-  .stack-item { background: var(--bg-elev); padding: 28px 24px; transition: all 0.3s; }
-  .stack-item:hover { background: var(--accent-soft); }
-  .stack-item:hover .stack-name { color: var(--accent); }
-  .stack-cat { font-size: 10px; color: var(--ink-faint); letter-spacing: 0.15em; margin-bottom: 8px; }
-  .stack-name {
-    font-family: var(--serif);
-    font-size: 20px; font-weight: 400;
-    color: var(--ink);
-    transition: color 0.3s;
-  }
-
-  /* TESTIMONIAL */
-  .testimonial-block {
-    background: radial-gradient(circle at 0% 0%, rgba(255,91,31,0.06), transparent 50%), var(--bg-elev);
-    padding: 80px;
-    border: 1px solid var(--line);
-    position: relative;
-  }
-  .testimonial-block::before {
-    content: '"';
-    font-family: var(--serif);
-    position: absolute; top: -50px; left: 40px;
-    font-size: 220px;
-    color: var(--accent);
-    line-height: 1;
-    opacity: 0.85;
-  }
-  .testimonial-text {
-    font-family: var(--serif);
-    font-size: clamp(22px, 2.4vw, 30px);
-    font-weight: 300; line-height: 1.45;
-    color: var(--ink);
-    margin-bottom: 32px;
-    letter-spacing: -0.01em;
-    font-style: italic;
-    position: relative;
-  }
-  .testimonial-text .em-accent { color: var(--accent); font-style: normal; font-weight: 400; }
-  .testimonial-author {
-    display: flex; align-items: center; gap: 16px;
-    border-top: 1px solid var(--line);
-    padding-top: 24px;
-  }
-  .author-avatar {
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--accent-deep));
-    color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 16px;
-  }
-  .author-name { font-size: 14px; color: var(--ink); }
-  .author-meta { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.05em; }
-
-  /* EXPERIENCE */
-  .exp-list { display: flex; flex-direction: column; }
-  .exp-item {
-    padding: 36px 0;
-    border-bottom: 1px solid var(--line);
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 40px;
-  }
-  .exp-item:first-child { border-top: 1px solid var(--line); }
-  .exp-date { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.1em; }
-  .exp-role {
-    font-family: var(--serif);
-    font-size: 26px; font-weight: 400;
-    margin-bottom: 4px;
-    color: var(--ink);
-  }
-  .exp-company { font-size: 12px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 16px; }
-  .exp-desc { color: var(--ink-dim); font-size: 13px; line-height: 1.7; }
-
-  /* CONTACT */
-  .contact {
-    padding: 160px 40px;
-    text-align: center;
-    max-width: 1100px;
-    margin: 0 auto;
-    border-top: 1px solid var(--line);
-  }
-  .contact-tag { font-size: 11px; color: var(--accent); letter-spacing: 0.2em; margin-bottom: 32px; }
-  .contact h2 {
-    font-family: var(--serif);
-    font-size: clamp(40px, 6vw, 88px);
-    font-weight: 300; line-height: 1;
-    letter-spacing: -0.03em;
-    margin-bottom: 24px;
-    color: var(--ink);
-  }
-  .contact h2 em { font-style: italic; color: var(--accent); }
-  .contact p {
-    color: var(--ink-dim);
-    max-width: 540px; margin: 0 auto 48px;
-    font-size: 14px; line-height: 1.7;
-  }
-  .contact-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--line);
-    padding: 40px;
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 11px; color: var(--ink-faint);
-    letter-spacing: 0.1em;
-    max-width: 1400px; margin: 0 auto;
-  }
-  footer .signal { display: flex; align-items: center; gap: 8px; }
-  footer .signal .dot {
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(255,91,31,0.5);
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 1024px) {
-    .hero-inner { grid-template-columns: 1.3fr 1fr; gap: 50px; }
-    .portrait-wrap { max-width: 320px; }
-  }
-  @media (max-width: 880px) {
-    nav { padding: 14px 20px; }
-    nav .links { display: none; }
-    .hero, section.block { padding-left: 20px; padding-right: 20px; }
-    .hero { padding-top: 110px; padding-bottom: 60px; min-height: auto; }
-    .hero-inner {
-      grid-template-columns: 1fr;
-      gap: 48px;
-      min-height: auto;
-    }
-    .portrait-wrap {
-      max-width: 240px;
-      margin: 0 auto;
-      order: -1;
-    }
-    .portrait-wrap::after { display: none; }
-    .portrait-label { left: 50%; transform: translateX(-50%); bottom: -14px; }
-    .hero-meta { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .problem-grid { grid-template-columns: 1fr; gap: 40px; }
-    .services { grid-template-columns: 1fr; }
-    .stack-grid { grid-template-columns: repeat(2, 1fr); }
-    .project { grid-template-columns: 30px 1fr; gap: 16px; }
-    .project .proj-tags, .project .proj-arrow { display: none; }
-    .exp-item { grid-template-columns: 1fr; gap: 8px; }
-    .testimonial-block { padding: 40px 28px; }
-    .testimonial-block::before { font-size: 130px; top: -30px; left: 20px; }
-    .section-head { flex-direction: column; gap: 8px; align-items: flex-start; }
-    footer { flex-direction: column; gap: 12px; padding: 30px 20px; text-align: center; }
-    section.block { padding-top: 80px; padding-bottom: 80px; }
-    .contact { padding: 100px 20px; }
-  }
-
-  /* PORTRAIT FALLBACK */
-  .portrait-initials {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--serif);
-    font-size: 96px; font-weight: 300;
-    color: var(--accent);
-    letter-spacing: -0.04em;
-  }
-  .portrait-frame img { position: relative; z-index: 1; }
-
-  /* DEPLOYMENTS */
-  .deploy-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  .deploy {
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    display: flex; flex-direction: column;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-  }
-  .deploy:hover {
-    transform: translateY(-4px);
-    border-color: var(--accent);
-    box-shadow: 0 24px 48px -24px rgba(26,24,20,0.3);
-  }
-  .browser-bar {
-    display: flex; align-items: center; gap: 6px;
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--line-soft);
-    background: var(--bg-deep);
-  }
-  .browser-bar span { width: 8px; height: 8px; border-radius: 50%; }
-  .browser-bar span:nth-child(1) { background: #ff5f57; }
-  .browser-bar span:nth-child(2) { background: #febc2e; }
-  .browser-bar span:nth-child(3) { background: #28c840; }
-  .browser-bar .url { margin-left: 8px; font-size: 10px; color: var(--ink-faint); }
-  .preview {
-    position: relative;
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
-    background: var(--bg-deep);
-  }
-  .preview img {
-    position: relative; z-index: 1;
-    width: 100%; height: auto; min-height: 100%;
-    object-fit: cover; object-position: top;
-    display: block;
-    transition: transform 3s ease;
-  }
-  .deploy:hover .preview img { transform: translateY(calc(-100% + 200px)); }
-  .preview-fallback {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--serif); font-size: 22px;
-    color: var(--ink-faint);
-  }
-  .deploy-body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
-  .deploy-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .deploy-cat { font-size: 10px; color: var(--accent-deep); letter-spacing: 0.12em; }
-  .live { font-size: 10px; color: #2f8f46; letter-spacing: 0.1em; display: flex; align-items: center; gap: 6px; }
-  .live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #28c840; }
-  .live.wip { color: var(--accent-deep); }
-  .live.wip::before { background: var(--accent); animation: pulse 2s ease-in-out infinite; }
-  .deploy-title {
-    font-family: var(--serif);
-    font-size: 24px; font-weight: 400;
-    color: var(--ink);
-    margin-bottom: 8px;
-    transition: color 0.3s;
-  }
-  .deploy:hover .deploy-title { color: var(--accent); }
-  .deploy-desc { color: var(--ink-dim); font-size: 12px; line-height: 1.7; margin-bottom: 16px; flex: 1; }
-  .deploy .proj-tags { margin-top: auto; }
-  .deploy.feature .preview {
-    display: flex; align-items: center; justify-content: center;
-    background: radial-gradient(circle at 30% 30%, rgba(255,91,31,0.18), transparent 60%), var(--term-bg);
-  }
-  .wave { display: flex; align-items: center; gap: 5px; height: 60px; }
-  .wave i {
-    display: block; width: 5px; border-radius: 3px;
-    background: var(--accent);
-    animation: wave 1.2s ease-in-out infinite;
-  }
-  .wave i:nth-child(odd) { animation-delay: 0.2s; }
-  .wave i:nth-child(3n) { animation-delay: 0.4s; }
-  @keyframes wave { 0%,100% { height: 12px; } 50% { height: 56px; } }
-
-  /* CLIENTS */
-  .clients-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
-  }
-  .client { background: var(--bg-elev); padding: 28px 24px; transition: background 0.3s; }
-  .client:hover { background: var(--accent-soft); }
-  .client.featured {
-    grid-column: span 3; padding: 40px;
-    display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; align-items: center;
-  }
-  .client-shot { border: 1px solid var(--line); box-shadow: 0 24px 48px -24px rgba(26,24,20,0.3); overflow: hidden; }
-  .client-shot img { width: 100%; display: block; }
-  .client-sector { font-size: 10px; color: var(--ink-faint); letter-spacing: 0.15em; margin-bottom: 8px; }
-  .client-name { font-family: var(--serif); font-size: 20px; color: var(--ink); }
-  .client.featured .client-name { font-size: 30px; margin-bottom: 10px; }
-  .client-desc { color: var(--ink-dim); font-size: 13px; line-height: 1.7; max-width: 720px; }
-
-  .contact-emails { font-size: 13px; color: var(--ink-dim); margin-bottom: 32px; }
-  .contact-emails a { color: var(--ink); border-bottom: 1px solid var(--accent); }
-
-  @media (max-width: 1024px) {
-    .deploy-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 880px) {
-    .deploy-grid { grid-template-columns: 1fr; }
-    .clients-grid { grid-template-columns: 1fr; }
-    .client.featured { grid-column: span 1; padding: 28px 24px; grid-template-columns: 1fr; gap: 24px; }
+  @media (max-width: 600px) {
+    header nav { gap: 14px; font-size: 13px; }
+    header nav a.opt { display: none; }
+    .hero { flex-direction: column; align-items: flex-start; gap: 18px; padding: 36px 0 32px; }
+    .hero img { width: 72px; height: 72px; }
+    .grid { gap: 20px 12px; }
+    .card { grid-column: span 6; }
+    .card.wide { grid-column: span 12; }
+    .card h3 { font-size: 16px; }
+    .card .meta { display: none; }
+    .exp { grid-template-columns: 1fr; }
+    .exp p { margin-bottom: 14px; }
   }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="brand">
-    <div class="brand-dot"></div>
-    <span class="brand-text">ALI AHMED</span>
+<header>
+  <div class="wrap">
+    <a class="name" href="#">Ali Ahmed</a>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#stack" class="opt">Stack</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </div>
-  <div class="links">
-    <a href="#services">services</a>
-    <a href="#work">work</a>
-    <a href="#stack">stack</a>
-    <a href="#clients">clients</a>
-    <a href="#experience">experience</a>
-    <a href="#contact">contact</a>
-  </div>
-  <div class="status">● AVAILABLE</div>
-</nav>
+</header>
 
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-tag">SOFTWARE DEVELOPER &nbsp;/&nbsp; VOICE AI &nbsp;/&nbsp; CLOUDORDINATE · SKIMMY SYDNEY</div>
-      <h1>
-        I build software<br>
-        that <em>runs in production</em><br>
-        <span class="slash">/</span> and stays there.
-      </h1>
-      <p class="hero-sub">
-        Hi, I'm <strong>Ali Ahmed</strong> — <strong>Voice AI Engineer</strong> at Skimmy AI and
-        <strong>Project Lead Developer</strong> at CloudOrdinate. I ship and maintain live systems across
-        <strong>logistics, commerce, and wellness</strong>, and I'm building <strong>Skimmy</strong>, a voice agent.
-      </p>
-      <div class="hero-meta">
-        <div class="meta-item"><div class="label">ROLE</div><div class="value">Voice AI Engineer</div></div>
-        <div class="meta-item"><div class="label">LIVE DEPLOYS</div><div class="value">8+</div></div>
-        <div class="meta-item"><div class="label">RESPONSE</div><div class="value">0–4 hrs</div></div>
-        <div class="meta-item"><div class="label">STATUS</div><div class="value"><span class="dot"></span>Open to work</div></div>
-      </div>
-      <div class="cta-row">
-        <a href="#contact" class="btn primary">Start a project <span class="arrow">↗</span></a>
-        <a href="#work" class="btn">See selected work</a>
-      </div>
-    </div>
+<main class="wrap">
 
-    <div class="portrait-wrap">
-      <div class="portrait-frame">
-        <div class="portrait-initials">AA</div>
-        <img src="assets/ali.png" alt="Ali Ahmed" onerror="this.remove()">
-      </div>
-      <div class="portrait-label"><span class="pulse-dot"></span>ALI · CLOUDORDINATE · SKIMMY</div>
+  <div class="hero">
+    <img src="assets/ali-face.jpg" alt="Ali Ahmed">
+    <div>
+      <h1>Ali Ahmed</h1>
+      <p class="role">Voice AI Engineer at Skimmy AI. Project Lead Developer at CloudOrdinate.</p>
+      <p class="sub">I build and maintain web apps, mobile apps and business software for logistics, commerce and wellness companies.</p>
+      <a class="cta" href="mailto:ali@cloudordinate.com">Email me</a>
     </div>
   </div>
-</section>
 
-<section class="block" id="problem">
-  <div class="section-head">
-    <span class="section-num">/ 01</span>
-    <h2 class="section-title">Software <em>in production</em>.</h2>
-  </div>
-  <div class="problem-grid">
-    <div class="problem-text">
-      <p>Eight live sites across <strong>logistics, commerce, and wellness</strong>.</p>
-      <p>Apogeu in Lisbon. Express Connection in Dubai.</p>
-      <p>All on <strong>Hetzner or Vercel</strong> — and <span class="highlight">all still maintained.</span></p>
-      <p>Not demos. Systems that real businesses <strong>run on every day</strong>.</p>
+  <section id="work">
+    <h2>Selected work</h2>
+    <div class="grid">
+
+      <div class="card wide">
+        <div class="shot"><img src="assets/projects/skimmy.png" alt="Skimmy AI" onerror="this.parentNode.classList.add('noshot');this.parentNode.textContent='skimmy.ai'"></div>
+        <h3>Skimmy AI</h3>
+        <p>Voice agent, in development.</p>
+      </div>
+
+      <div class="card wide">
+        <div class="shot"><img src="assets/projects/gct.png" alt="GCT warehousing software dashboard"></div>
+        <h3>GCT, Gulf Container Terminal</h3>
+        <p>Depot software for container tracking, EIRs, gate control, invoicing and reports.</p>
+      </div>
+
+      <a class="card" href="https://apogeu.eu.com" target="_blank" rel="noopener">
+        <div class="shot"><img loading="lazy" src="assets/projects/apogeu.jpg" alt="Apogeu website"></div>
+        <h3>Apogeu</h3>
+        <p>Freight forwarding and customs, Lisbon.</p>
+        <div class="meta">Next.js · Tailwind · Vercel</div>
+      </a>
+
+      <a class="card" href="https://getmoodzy.com" target="_blank" rel="noopener">
+        <div class="shot"><img loading="lazy" src="assets/projects/moodzy.jpg" alt="Moodzy dashboard"></div>
+        <h3>Moodzy</h3>
+        <p>Mood tracking for neurodivergent users.</p>
+        <div class="meta">React · Node.js · PostgreSQL</div>
+      </a>
+
+      <a class="card" href="https://expresscon.ae" target="_blank" rel="noopener">
+        <div class="shot"><img loading="lazy" src="assets/projects/expresscon.jpg" alt="Express Connection website"></div>
+        <h3>Express Connection</h3>
+        <p>Freight and warehousing, Dubai.</p>
+        <div class="meta">React · Tailwind · AWS</div>
+      </a>
+
+      <a class="card" href="https://purplestore.com.pk" target="_blank" rel="noopener">
+        <div class="shot"><img loading="lazy" src="assets/projects/purplestore.jpg" alt="Purple Store website"></div>
+        <h3>Purple Store</h3>
+        <p>Hijab and fashion store. Co-founder.</p>
+        <div class="meta">Shopify · Liquid</div>
+      </a>
+
+      <a class="card" href="https://tlogistikz.com" target="_blank" rel="noopener">
+        <div class="shot"><img loading="lazy" src="assets/projects/tlogistikz.jpg" alt="Trans Logistikz website"></div>
+        <h3>Trans Logistikz</h3>
+        <p>Sea freight, ISO tanks and customs.</p>
+        <div class="meta">Next.js · Tailwind · AWS</div>
+      </a>
+
+      <a class="card" href="https://tradeandtrade.ae" target="_blank" rel="noopener">
+        <div class="shot"><img loading="lazy" src="assets/projects/tradeandtrade.jpg" alt="Trade and Trade website"></div>
+        <h3>Trade &amp; Trade</h3>
+        <p>Commodity trading for UAE buyers.</p>
+        <div class="meta">React · Tailwind · Netlify</div>
+      </a>
+
+      <a class="card" href="https://expships.com" target="_blank" rel="noopener">
+        <div class="shot"><img loading="lazy" src="assets/projects/expships.jpg" alt="Express Shipping website"></div>
+        <h3>Express Shipping</h3>
+        <p>Freight forwarding and ISO tanks.</p>
+        <div class="meta">Next.js · Framer · Vercel</div>
+      </a>
+
+      <a class="card" href="https://gccpl.com.pk" target="_blank" rel="noopener">
+        <div class="shot"><img loading="lazy" src="assets/projects/gccpl.jpg" alt="Global Cargo website"></div>
+        <h3>Global Cargo</h3>
+        <p>Sea and air freight, customs.</p>
+        <div class="meta">Next.js · Docker · Go</div>
+      </a>
+
     </div>
-    <div class="terminal">
-      <div class="terminal-head">
-        <div class="terminal-dots"><span></span><span></span><span></span></div>
-        <div class="terminal-title">deployments.status</div>
-      </div>
-      <div class="terminal-body">
-        <div class="term-line"><span class="term-cmd">→</span> apogeu.eu.com <span class="term-ok">✓ live</span></div>
-        <div class="term-line"><span class="term-cmd">→</span> getmoodzy.com <span class="term-ok">✓ live</span></div>
-        <div class="term-line"><span class="term-cmd">→</span> tlogistikz.com <span class="term-ok">✓ live</span></div>
-        <div class="term-line"><span class="term-cmd">→</span> tradeandtrade.ae <span class="term-ok">✓ live</span></div>
-        <div class="term-line"><span class="term-cmd">→</span> expships.com <span class="term-ok">✓ live</span></div>
-        <div class="term-line"><span class="term-cmd">→</span> expresscon.ae <span class="term-ok">✓ live</span></div>
-        <div class="term-line"><span class="term-cmd">→</span> purplestore.com.pk <span class="term-ok">✓ live</span></div>
-        <div class="term-line"><span class="term-cmd">→</span> gccpl.com.pk <span class="term-ok">✓ live</span></div>
-        <div class="term-line"><span class="term-cmd">→</span> skimmy.voice_agent <span class="term-out">// building</span></div>
-        <br>
-        <div class="term-line">deploys: <span class="term-out">8+</span> &nbsp; industries: <span class="term-out">6</span> &nbsp; status: <span class="term-ok">live</span></div>
-        <div class="term-line term-cursor"></div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="block" id="services">
-  <div class="section-head">
-    <span class="section-num">/ 02</span>
-    <h2 class="section-title">What I <em>build</em>.</h2>
-  </div>
-  <div class="services">
-    <div class="service">
-      <div class="service-num">001 · CORE</div>
-      <div class="service-title">Custom Software</div>
-      <div class="service-desc">Business systems built around how your operation actually works — records, workflows, reports, and documents.</div>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service">
-      <div class="service-num">002 · CORE</div>
-      <div class="service-title">AI Automation</div>
-      <div class="service-desc">AI agents and automations that take repetitive work off your team — including voice agents.</div>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service">
-      <div class="service-num">003</div>
-      <div class="service-title">Mobile Apps</div>
-      <div class="service-desc">Cross-platform mobile apps, from first build to store release and ongoing updates.</div>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service">
-      <div class="service-num">004</div>
-      <div class="service-title">Website Development</div>
-      <div class="service-desc">Fast, production-ready websites and storefronts for logistics, trading, and commerce brands.</div>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service">
-      <div class="service-num">005</div>
-      <div class="service-title">Cloud &amp; DevOps</div>
-      <div class="service-desc">Deployment, hosting, and maintenance on AWS, Hetzner, Vercel, and Docker — kept live after launch.</div>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service">
-      <div class="service-num">006</div>
-      <div class="service-title">UI/UX Design</div>
-      <div class="service-desc">Clean, usable interfaces designed alongside the code, not handed off and forgotten.</div>
-      <div class="service-arrow">→</div>
-    </div>
-  </div>
-</section>
+  <section id="stack">
+    <h2>Stack</h2>
+    <dl class="stack">
+      <div><dt>Frontend</dt><dd>React, Next.js, Tailwind CSS, Framer</dd></div>
+      <div><dt>Backend</dt><dd>Node.js, Go</dd></div>
+      <div><dt>Data</dt><dd>PostgreSQL</dd></div>
+      <div><dt>Commerce</dt><dd>Shopify, Liquid</dd></div>
+      <div><dt>Infra</dt><dd>Docker, AWS, Hetzner</dd></div>
+      <div><dt>Hosting</dt><dd>Vercel, Netlify</dd></div>
+    </dl>
+  </section>
 
-<section class="block" id="work">
-  <div class="section-head">
-    <span class="section-num">/ 03</span>
-    <h2 class="section-title">Selected <em>work</em>.</h2>
-  </div>
-  <div class="deploy-grid">
-
-    <div class="deploy feature">
-      <div class="browser-bar"><span></span><span></span><span></span><div class="url">skimmy · voice agent</div></div>
-      <div class="preview"><div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-      <div class="deploy-body">
-        <div class="deploy-top"><span class="deploy-cat">AI · VOICE</span><span class="live wip">BUILDING</span></div>
-        <div class="deploy-title">Skimmy AI</div>
-        <div class="deploy-desc">A voice agent I'm currently building at Skimmy AI.</div>
-      </div>
-    </div>
-
-    <a class="deploy" href="https://apogeu.eu.com" target="_blank" rel="noopener">
-      <div class="browser-bar"><span></span><span></span><span></span><div class="url">apogeu.eu.com</div></div>
-      <div class="preview"><div class="preview-fallback">Apogeu</div><img loading="lazy" alt="Apogeu" src="assets/projects/apogeu.jpg" data-site="https://apogeu.eu.com"></div>
-      <div class="deploy-body">
-        <div class="deploy-top"><span class="deploy-cat">LOGISTICS</span><span class="live">LIVE</span></div>
-        <div class="deploy-title">Apogeu</div>
-        <div class="deploy-desc">European freight forwarding, customs, and IT services out of Lisbon.</div>
-        <div class="proj-tags"><span class="tag">Next.js</span><span class="tag">Tailwind</span><span class="tag">Vercel</span></div>
-      </div>
-    </a>
-
-    <a class="deploy" href="https://getmoodzy.com" target="_blank" rel="noopener">
-      <div class="browser-bar"><span></span><span></span><span></span><div class="url">getmoodzy.com</div></div>
-      <div class="preview"><div class="preview-fallback">Moodzy</div><img loading="lazy" alt="Moodzy" src="assets/projects/moodzy.jpg" data-site="https://getmoodzy.com"></div>
-      <div class="deploy-body">
-        <div class="deploy-top"><span class="deploy-cat">WELLNESS</span><span class="live">LIVE</span></div>
-        <div class="deploy-title">Moodzy</div>
-        <div class="deploy-desc">Neurodiversity support dashboard with mood tracking and gamification.</div>
-        <div class="proj-tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">PostgreSQL</span></div>
-      </div>
-    </a>
-
-    <a class="deploy" href="https://tlogistikz.com" target="_blank" rel="noopener">
-      <div class="browser-bar"><span></span><span></span><span></span><div class="url">tlogistikz.com</div></div>
-      <div class="preview"><div class="preview-fallback">Trans Logistikz</div><img loading="lazy" alt="Trans Logistikz" src="assets/projects/tlogistikz.jpg" data-site="https://tlogistikz.com"></div>
-      <div class="deploy-body">
-        <div class="deploy-top"><span class="deploy-cat">LOGISTICS</span><span class="live">LIVE</span></div>
-        <div class="deploy-title">Trans Logistikz</div>
-        <div class="deploy-desc">Sea freight, ISO tanks, customs clearance, and global logistics.</div>
-        <div class="proj-tags"><span class="tag">Next.js</span><span class="tag">Tailwind</span><span class="tag">AWS</span></div>
-      </div>
-    </a>
-
-    <a class="deploy" href="https://tradeandtrade.ae" target="_blank" rel="noopener">
-      <div class="browser-bar"><span></span><span></span><span></span><div class="url">tradeandtrade.ae</div></div>
-      <div class="preview"><div class="preview-fallback">Trade &amp; Trade</div><img loading="lazy" alt="Trade &amp; Trade" src="assets/projects/tradeandtrade.jpg" data-site="https://tradeandtrade.ae"></div>
-      <div class="deploy-body">
-        <div class="deploy-top"><span class="deploy-cat">COMMERCE</span><span class="live">LIVE</span></div>
-        <div class="deploy-title">Trade &amp; Trade</div>
-        <div class="deploy-desc">Global commodity trading in rice, pulses, and minerals, with B2B sourcing tools for UAE buyers.</div>
-        <div class="proj-tags"><span class="tag">React</span><span class="tag">Tailwind</span><span class="tag">Netlify</span></div>
-      </div>
-    </a>
-
-    <a class="deploy" href="https://expships.com" target="_blank" rel="noopener">
-      <div class="browser-bar"><span></span><span></span><span></span><div class="url">expships.com</div></div>
-      <div class="preview"><div class="preview-fallback">Express Shipping</div><img loading="lazy" alt="Express Shipping" src="assets/projects/expships.jpg" data-site="https://expships.com"></div>
-      <div class="deploy-body">
-        <div class="deploy-top"><span class="deploy-cat">LOGISTICS</span><span class="live">LIVE</span></div>
-        <div class="deploy-title">Express Shipping</div>
-        <div class="deploy-desc">Custom logistics setup covering freight forwarding and ISO tank handling.</div>
-        <div class="proj-tags"><span class="tag">Next.js</span><span class="tag">Framer</span><span class="tag">Vercel</span></div>
-      </div>
-    </a>
-
-    <a class="deploy" href="https://expresscon.ae" target="_blank" rel="noopener">
-      <div class="browser-bar"><span></span><span></span><span></span><div class="url">expresscon.ae</div></div>
-      <div class="preview"><div class="preview-fallback">Express Connection</div><img loading="lazy" alt="Express Connection" src="assets/projects/expresscon.jpg" data-site="https://expresscon.ae"></div>
-      <div class="deploy-body">
-        <div class="deploy-top"><span class="deploy-cat">LOGISTICS · DUBAI</span><span class="live">LIVE</span></div>
-        <div class="deploy-title">Express Connection</div>
-        <div class="deploy-desc">Ocean and air freight, warehousing, and supply chain management out of Dubai.</div>
-        <div class="proj-tags"><span class="tag">React</span><span class="tag">Tailwind</span><span class="tag">AWS</span></div>
-      </div>
-    </a>
-
-    <a class="deploy" href="https://purplestore.com.pk" target="_blank" rel="noopener">
-      <div class="browser-bar"><span></span><span></span><span></span><div class="url">purplestore.com.pk</div></div>
-      <div class="preview"><div class="preview-fallback">Purple Store</div><img loading="lazy" alt="Purple Store" src="assets/projects/purplestore.jpg" data-site="https://purplestore.com.pk"></div>
-      <div class="deploy-body">
-        <div class="deploy-top"><span class="deploy-cat">COMMERCE · CO-FOUNDER</span><span class="live">LIVE</span></div>
-        <div class="deploy-title">Purple Store</div>
-        <div class="deploy-desc">E-commerce storefront for hijabs, accessories, and fashion collections.</div>
-        <div class="proj-tags"><span class="tag">Shopify</span><span class="tag">Liquid</span><span class="tag">Tailwind</span></div>
-      </div>
-    </a>
-
-    <a class="deploy" href="https://gccpl.com.pk" target="_blank" rel="noopener">
-      <div class="browser-bar"><span></span><span></span><span></span><div class="url">gccpl.com.pk</div></div>
-      <div class="preview"><div class="preview-fallback">Global Cargo</div><img loading="lazy" alt="Global Cargo" src="assets/projects/gccpl.jpg" data-site="https://gccpl.com.pk"></div>
-      <div class="deploy-body">
-        <div class="deploy-top"><span class="deploy-cat">LOGISTICS</span><span class="live">LIVE</span></div>
-        <div class="deploy-title">Global Cargo</div>
-        <div class="deploy-desc">Full-service freight across sea, air, ISO tanks, customs, and warehousing.</div>
-        <div class="proj-tags"><span class="tag">Next.js</span><span class="tag">Docker</span><span class="tag">Go</span></div>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<section class="block" id="stack">
-  <div class="section-head">
-    <span class="section-num">/ 04</span>
-    <h2 class="section-title">The <em>stack</em>.</h2>
-  </div>
-  <div class="stack-grid">
-    <div class="stack-item"><div class="stack-cat">FRAMEWORK</div><div class="stack-name">Next.js</div></div>
-    <div class="stack-item"><div class="stack-cat">FRONTEND</div><div class="stack-name">React</div></div>
-    <div class="stack-item"><div class="stack-cat">STYLING</div><div class="stack-name">Tailwind CSS</div></div>
-    <div class="stack-item"><div class="stack-cat">DESIGN</div><div class="stack-name">Framer</div></div>
-    <div class="stack-item"><div class="stack-cat">BACKEND</div><div class="stack-name">Node.js</div></div>
-    <div class="stack-item"><div class="stack-cat">BACKEND</div><div class="stack-name">Go</div></div>
-    <div class="stack-item"><div class="stack-cat">DATABASE</div><div class="stack-name">PostgreSQL</div></div>
-    <div class="stack-item"><div class="stack-cat">COMMERCE</div><div class="stack-name">Shopify · Liquid</div></div>
-    <div class="stack-item"><div class="stack-cat">CONTAINERS</div><div class="stack-name">Docker</div></div>
-    <div class="stack-item"><div class="stack-cat">CLOUD</div><div class="stack-name">AWS</div></div>
-    <div class="stack-item"><div class="stack-cat">HOSTING</div><div class="stack-name">Vercel · Netlify</div></div>
-    <div class="stack-item"><div class="stack-cat">SERVERS</div><div class="stack-name">Hetzner</div></div>
-  </div>
-</section>
-
-<section class="block" id="clients">
-  <div class="section-head">
-    <span class="section-num">/ 05</span>
-    <h2 class="section-title">Who I <em>build for</em>.</h2>
-  </div>
-  <div class="clients-grid">
-    <div class="client featured">
-      <div class="client-info">
-        <div class="client-sector">WAREHOUSING · CONTAINER DEPOT</div>
-        <div class="client-name">GCT — Gulf Container Terminal</div>
-        <div class="client-desc">Warehousing and depot software: container records and tracking, EIR printing, booking inquiries, gate control, movements, tariffs and invoicing, and exportable reports.</div>
-      </div>
-      <div class="client-shot"><img loading="lazy" src="assets/projects/gct.png" alt="GCT warehousing software dashboard"></div>
-    </div>
-    <div class="client"><div class="client-sector">LOGISTICS · DUBAI</div><div class="client-name">Express Connection</div></div>
-    <div class="client"><div class="client-sector">LOGISTICS · LISBON</div><div class="client-name">Apogeu</div></div>
-    <div class="client"><div class="client-sector">WELLNESS</div><div class="client-name">Moodzy</div></div>
-    <div class="client"><div class="client-sector">LOGISTICS</div><div class="client-name">Trans Logistikz</div></div>
-    <div class="client"><div class="client-sector">COMMERCE · UAE</div><div class="client-name">Trade &amp; Trade</div></div>
-    <div class="client"><div class="client-sector">LOGISTICS</div><div class="client-name">Global Cargo</div></div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="section-head">
-    <span class="section-num">/ 06</span>
-    <h2 class="section-title">Client <em>voice</em>.</h2>
-  </div>
-  <div class="testimonial-block">
-    <p class="testimonial-text">
-      The <span class="em-accent">warehousing software</span> and our <span class="em-accent">Express Connection website</span> have genuinely helped our business.
-      Container records, EIRs, and reports are now handled in one place, and our clients in Dubai get a clear, professional first impression online.
-    </p>
-    <div class="testimonial-author">
-      <div class="author-avatar">F</div>
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="exp">
+      <div class="when">Sep 2026 to now</div>
       <div>
-        <div class="author-name">Faizan Nisar</div>
-        <div class="author-meta">GCT WAREHOUSING SOFTWARE · EXPRESS CONNECTION, DUBAI</div>
+        <h3>Voice AI Engineer <span>at Skimmy AI</span></h3>
+        <p>Building the core voice AI: LLMs, speech to text, text to speech, telephony and call routing.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="block" id="experience">
-  <div class="section-head">
-    <span class="section-num">/ 07</span>
-    <h2 class="section-title">Track <em>record</em>.</h2>
-  </div>
-  <div class="exp-list">
-    <div class="exp-item">
-      <div class="exp-date">SEP 2026 — PRESENT</div>
+      <div class="when">Sep 2024 to now</div>
       <div>
-        <div class="exp-role">Voice AI Engineer</div>
-        <div class="exp-company">SKIMMY AI · SYDNEY · FULL-TIME</div>
-        <div class="exp-desc">Developing the core voice AI systems at Skimmy AI, working across LLMs, STT/TTS, telephony, call routing, and backend infrastructure.</div>
+        <h3>Project Lead Developer <span>at CloudOrdinate</span></h3>
+        <p>Lead web and mobile projects for clients including GCT, Express Connection, Apogeu and Moodzy.</p>
       </div>
-    </div>
-    <div class="exp-item">
-      <div class="exp-date">SEP 2024 — PRESENT</div>
+      <div class="when">Co-founder</div>
       <div>
-        <div class="exp-role">Project Lead Developer</div>
-        <div class="exp-company">CLOUDORDINATE · SYDNEY · FULL-TIME</div>
-        <div class="exp-desc">Leading mobile app and web-based software projects for clients across logistics, commerce, and wellness — including GCT's warehousing software, Express Connection, Apogeu, and Moodzy.</div>
+        <h3>Purple Store</h3>
+        <p>Fashion e-commerce brand I run with my sister.</p>
       </div>
     </div>
-    <div class="exp-item">
-      <div class="exp-date">CO-FOUNDER</div>
-      <div>
-        <div class="exp-role">Co-Founder</div>
-        <div class="exp-company">PURPLE STORE</div>
-        <div class="exp-desc">Co-founded Purple Store with my sister — an e-commerce brand for hijabs, accessories, and fashion collections.</div>
-      </div>
+  </section>
+
+  <section>
+    <h2>Client voice</h2>
+    <blockquote>
+      <p>We run the depot on the GCT software every day. EIRs, container tracking and reports are in one place now, and the Express Connection site finally looks like the business we are.</p>
+      <footer><strong>Faizan Nisar</strong>, GCT and Express Connection, Dubai</footer>
+    </blockquote>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <p>Have a project? Send me a short note and I will reply within a day.</p>
+    <div class="links">
+      <a href="mailto:ali@cloudordinate.com">ali@cloudordinate.com</a>
+      <a href="mailto:ali@skimmy.ai">ali@skimmy.ai</a>
+      <a href="https://www.linkedin.com/in/ali-ahmed-551b2b416/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.instagram.com/alii.builds/" target="_blank" rel="noopener">Instagram @alii.builds</a>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="contact" id="contact">
-  <div class="contact-tag">/ 08 — LET'S BUILD</div>
-  <h2>Send me<br>your <em>project.</em></h2>
-  <p>Tell me what you need built. I'll reply with scope and a plan.</p>
-  <div class="contact-emails">
-    <a href="mailto:ali@cloudordinate.com">ali@cloudordinate.com</a> &nbsp;·&nbsp; <a href="mailto:ali@skimmy.ai">ali@skimmy.ai</a>
-  </div>
-  <div class="contact-links">
-    <a href="mailto:ali@cloudordinate.com" class="btn primary">Email me <span class="arrow">↗</span></a>
-    <a href="https://www.linkedin.com/in/ali-ahmed-551b2b416/" target="_blank" rel="noopener" class="btn">LinkedIn <span class="arrow">↗</span></a>
-    <a href="https://www.instagram.com/alii.builds/" target="_blank" rel="noopener" class="btn">Instagram · alii.builds <span class="arrow">↗</span></a>
-  </div>
-</section>
+</main>
 
-<footer>
-  <div>© 2026 ALI AHMED · CLOUDORDINATE · SKIMMY</div>
-  <div class="signal">
-    <span class="dot"></span>
-    <span>8+ LIVE DEPLOYS · ALL MAINTAINED</span>
-  </div>
-</footer>
-
-<script>
-  document.querySelectorAll('.preview img[data-site]').forEach(img => {
-    img.addEventListener('error', function handler() {
-      if (!img.dataset.tried) {
-        img.dataset.tried = '1';
-        img.src = 'https://image.thum.io/get/width/800/crop/1600/' + img.dataset.site;
-      } else {
-        img.removeEventListener('error', handler);
-        img.remove();
-      }
-    });
-    if (img.complete && img.naturalWidth === 0) img.dispatchEvent(new Event('error'));
-  });
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const el = e.target;
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-        io.unobserve(el);
-        setTimeout(() => { el.style.transition = ''; el.style.transform = ''; el.style.opacity = ''; }, 1000);
-      }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.section-head, .service, .deploy, .exp-item, .stack-item, .client, .testimonial-block').forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = `opacity 0.6s ease ${(i % 6) * 0.05}s, transform 0.6s ease ${(i % 6) * 0.05}s`;
-    io.observe(el);
-  });
-</script>
+<div class="foot"><div class="wrap">© 2026 Ali Ahmed</div></div>
 
 </body>
 </html>
