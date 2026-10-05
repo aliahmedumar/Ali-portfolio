@@ -37,7 +37,7 @@ jobs:
             --include='index.html' --include='favicon.ico' --include='site.webmanifest' --include='assets/***' --exclude='*' \
             ./ "$VPS_USER@$VPS_HOST:~/site-staging/"
           rsync -az --delete -e "ssh -i ~/.ssh/deploy_key" \
-            deploy/booking_api.py deploy/ali-booking.service deploy/ali.cloudordinate.com.conf \
+            deploy/booking_api.py deploy/smtp_check.py deploy/ali-booking.service deploy/ali.cloudordinate.com.conf \
             "$VPS_USER@$VPS_HOST:~/booking-staging/"
 
       - name: Publish
@@ -63,4 +63,5 @@ jobs:
             sudo systemctl restart ali-booking
             sudo nginx -t && sudo systemctl reload-or-restart nginx
             sleep 1; curl -fsS http://127.0.0.1:8089/api/health
+            sudo python3 ~/booking-staging/smtp_check.py
           "

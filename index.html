@@ -196,12 +196,31 @@
   .status.err { color: var(--accent-deep); }
   .contact .links { margin-top: 20px; }
 
+  button.cta { border: 0; cursor: pointer; font-family: var(--body); }
+  .contact .cta { margin-top: 16px; }
+  dialog {
+    border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+    width: min(940px, calc(100vw - 32px)); max-height: calc(100vh - 32px);
+    padding: 26px; margin: auto; overflow: auto;
+    box-shadow: 0 40px 80px -30px rgba(28,25,21,0.5);
+  }
+  dialog::backdrop { background: rgba(28,25,21,0.45); backdrop-filter: blur(3px); }
+  .dlg-head { display: flex; justify-content: space-between; align-items: flex-start; }
+  .dlg-head h2 { margin-bottom: 12px; }
+  .dlg-close { background: none; border: 0; font-size: 30px; line-height: 1; cursor: pointer; color: var(--muted); padding: 0 4px; }
+  .dlg-close:hover { color: var(--accent); }
+  .dlg-sub { color: var(--muted); }
+  dialog .book { margin-top: 16px; }
+  body.dlg-open { overflow: hidden; }
+
   .foot { padding: 20px 0 32px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
 
   @media (max-width: 900px) {
     .card, .card.wide { grid-column: span 6; }
     .stack { grid-template-columns: 1fr; }
     .quotes, .book { grid-template-columns: 1fr; }
+    dialog { padding: 18px; }
+    dialog .book { padding: 16px; }
   }
   @media (max-width: 700px) {
     .hero { grid-template-columns: 1fr; gap: 28px; padding: 32px 0; }
@@ -229,7 +248,7 @@
       <a href="#work">Work</a>
       <a href="#stack" class="opt">Stack</a>
       <a href="#experience">Experience</a>
-      <a href="#work-with-me">Work with me</a>
+      <a href="#contact" data-book>Work with me</a>
     </nav>
   </div>
 </header>
@@ -241,7 +260,7 @@
       <h1>Ali Ahmed</h1>
       <p class="role">Voice AI Engineer at Skimmy AI. Project Lead Developer at CloudOrdinate.</p>
       <p class="sub">I build and maintain web apps, mobile apps and business software for logistics, commerce and wellness companies.</p>
-      <a class="cta" href="#work-with-me">Work with me</a>
+      <button type="button" class="cta" data-book>Work with me</button>
     </div>
     <div class="portrait">
       <div class="portrait-frame"><img src="assets/ali.png" alt="Ali Ahmed"></div>
@@ -373,32 +392,11 @@
     </div>
   </section>
 
-  <section id="work-with-me" class="contact">
-    <h2>Work with me</h2>
-    <p>Pick a time for a 30 minute call and tell me what you need. I will confirm by email.</p>
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <p>Book a 30 minute call and tell me what you need, or reach me directly.</p>
+    <button type="button" class="cta" data-book>Work with me</button>
 
-    <form class="book" id="book" novalidate>
-      <div class="cal">
-        <div class="cal-head">
-          <button type="button" class="cal-nav" id="cal-prev" aria-label="Previous month">‹</button>
-          <strong id="cal-title"></strong>
-          <button type="button" class="cal-nav" id="cal-next" aria-label="Next month">›</button>
-        </div>
-        <div class="cal-grid" id="cal-grid" role="grid"></div>
-        <div class="slots" id="slots"><p class="hint">Choose a weekday to see times.</p></div>
-      </div>
-
-      <div class="fields">
-        <label>Name<input name="name" required maxlength="100" autocomplete="name"></label>
-        <label>Email<input name="email" type="email" required maxlength="200" autocomplete="email"></label>
-        <label><div>Company <span>(optional)</span></div><input name="company" maxlength="150" autocomplete="organization"></label>
-        <label>What do you need?<textarea name="message" rows="4" required maxlength="3000"></textarea></label>
-        <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
-        <p class="picked" id="picked">No time selected.</p>
-        <button type="submit" class="cta" id="book-btn">Request call</button>
-        <p class="status" id="book-status" role="status"></p>
-      </div>
-    </form>
 
     <div class="links">
       <a href="mailto:ali@cloudordinate.com">ali@cloudordinate.com</a>
@@ -409,6 +407,36 @@
   </section>
 
 </main>
+
+<dialog id="book-dialog" aria-labelledby="book-title">
+  <div class="dlg-head">
+    <h2 id="book-title">Work with me</h2>
+    <button type="button" class="dlg-close" id="book-close" aria-label="Close">×</button>
+  </div>
+  <p class="dlg-sub">Pick a time for a 30 minute call and tell me what you need. I will confirm by email.</p>
+  <form class="book" id="book" novalidate>
+    <div class="cal">
+      <div class="cal-head">
+        <button type="button" class="cal-nav" id="cal-prev" aria-label="Previous month">‹</button>
+        <strong id="cal-title"></strong>
+        <button type="button" class="cal-nav" id="cal-next" aria-label="Next month">›</button>
+      </div>
+      <div class="cal-grid" id="cal-grid" role="grid"></div>
+      <div class="slots" id="slots"><p class="hint">Choose a weekday to see times.</p></div>
+    </div>
+
+    <div class="fields">
+      <label>Name<input name="name" required maxlength="100" autocomplete="name"></label>
+      <label>Email<input name="email" type="email" required maxlength="200" autocomplete="email"></label>
+      <label><div>Company <span>(optional)</span></div><input name="company" maxlength="150" autocomplete="organization"></label>
+      <label>What do you need?<textarea name="message" rows="4" required maxlength="3000"></textarea></label>
+      <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+      <p class="picked" id="picked">No time selected.</p>
+      <button type="submit" class="cta" id="book-btn">Request call</button>
+      <p class="status" id="book-status" role="status"></p>
+    </div>
+  </form>
+</dialog>
 
 <div class="foot"><div class="wrap">© 2026 Ali Ahmed</div></div>
 
@@ -545,6 +573,17 @@
         status.textContent = e2.message + ' You can also email ali@cloudordinate.com.';
         status.classList.add('err');
       }).then(function () { btn.disabled = false; });
+    });
+
+    var dlg = document.getElementById('book-dialog');
+    function openBook(e) { e.preventDefault(); dlg.showModal(); document.body.classList.add('dlg-open'); }
+    document.querySelectorAll('[data-book]').forEach(function (el) { el.addEventListener('click', openBook); });
+    document.getElementById('book-close').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('close', function () { document.body.classList.remove('dlg-open'); });
+    dlg.addEventListener('click', function (e) {
+      if (e.target !== dlg) return;
+      var r = dlg.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
     });
 
     render();
