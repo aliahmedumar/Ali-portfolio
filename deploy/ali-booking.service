@@ -1,0 +1,18 @@
+[Unit]
+Description=Booking API for ali.cloudordinate.com
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=/etc/ali-booking.env
+ExecStart=/usr/bin/python3 /opt/ali-booking/booking_api.py
+DynamicUser=yes
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

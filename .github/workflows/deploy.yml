@@ -36,13 +36,31 @@ jobs:
           rsync -az --delete -e "ssh -i ~/.ssh/deploy_key" \
             --include='index.html' --include='favicon.ico' --include='site.webmanifest' --include='assets/***' --exclude='*' \
             ./ "$VPS_USER@$VPS_HOST:~/site-staging/"
+          rsync -az --delete -e "ssh -i ~/.ssh/deploy_key" \
+            deploy/booking_api.py deploy/ali-booking.service deploy/ali.cloudordinate.com.conf \
+            "$VPS_USER@$VPS_HOST:~/booking-staging/"
 
       - name: Publish
+        env:
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
         run: |
+          [ -n "$SMTP_PASS" ] || echo "::warning::SMTP_PASS secret missing; booking emails will fail"
+          printf 'SMTP_HOST=smtp.hostinger.com\nSMTP_PORT=465\nSMTP_USER=ali@cloudordinate.com\nMAIL_TO=ali@cloudordinate.com\nPORT=8089\nSMTP_PASS=%s\n' "$SMTP_PASS" \
+            | ssh -i ~/.ssh/deploy_key "$VPS_USER@$VPS_HOST" "sudo install -m 600 -o root -g root /dev/stdin /etc/ali-booking.env"
           ssh -i ~/.ssh/deploy_key "$VPS_USER@$VPS_HOST" "
-            sudo mkdir -p $SITE_DIR &&
-            sudo rsync -a --delete ~/site-staging/ $SITE_DIR/ &&
-            sudo chown -R nginx:nginx $SITE_DIR &&
-            (command -v restorecon >/dev/null && sudo restorecon -R $SITE_DIR || true) &&
+            set -e
+            sudo mkdir -p $SITE_DIR /opt/ali-booking
+            sudo rsync -a --delete ~/site-staging/ $SITE_DIR/
+            sudo chown -R nginx:nginx $SITE_DIR
+            (command -v restorecon >/dev/null && sudo restorecon -R $SITE_DIR || true)
+            sudo install -m 644 ~/booking-staging/booking_api.py /opt/ali-booking/booking_api.py
+            sudo install -m 644 ~/booking-staging/ali-booking.service /etc/systemd/system/ali-booking.service
+            sudo install -m 644 ~/booking-staging/ali.cloudordinate.com.conf /etc/nginx/conf.d/ali.cloudordinate.com.conf
+            (command -v restorecon >/dev/null && sudo restorecon -R /opt/ali-booking /etc/systemd/system/ali-booking.service /etc/nginx/conf.d || true)
+            if command -v getsebool >/dev/null && getsebool httpd_can_network_connect | grep -q off; then sudo setsebool -P httpd_can_network_connect 1; fi
+            sudo systemctl daemon-reload
+            sudo systemctl enable ali-booking >/dev/null 2>&1
+            sudo systemctl restart ali-booking
             sudo nginx -t && sudo systemctl reload-or-restart nginx
+            sleep 1; curl -fsS http://127.0.0.1:8089/api/health
           "
