@@ -20,12 +20,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch Skimmy hero media
-        run: |
-          sudo apt-get install -y -qq ffmpeg > /dev/null 2>&1 || true
-          bash deploy/fetch-skimmy.sh
-          ls -la assets/projects/ | grep -i skimmy || true
-
       - name: Set up SSH
         env:
           VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
