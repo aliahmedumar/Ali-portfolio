@@ -1,0 +1,44 @@
+name: Deploy to Oracle VPS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+env:
+  VPS_HOST: 139.185.40.101
+  VPS_USER: opc
+  SITE_DIR: /var/www/ali.cloudordinate.com
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts
+
+      - name: Upload site
+        run: |
+          rsync -az --delete -e "ssh -i ~/.ssh/deploy_key" \
+            --include='index.html' --include='assets/***' --exclude='*' \
+            ./ "$VPS_USER@$VPS_HOST:~/site-staging/"
+
+      - name: Publish
+        run: |
+          ssh -i ~/.ssh/deploy_key "$VPS_USER@$VPS_HOST" "
+            sudo mkdir -p $SITE_DIR &&
+            sudo rsync -a --delete ~/site-staging/ $SITE_DIR/ &&
+            sudo chown -R nginx:nginx $SITE_DIR &&
+            (command -v restorecon >/dev/null && sudo restorecon -R $SITE_DIR || true) &&
+            sudo nginx -t && sudo systemctl reload nginx
+          "
