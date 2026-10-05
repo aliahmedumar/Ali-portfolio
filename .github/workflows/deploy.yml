@@ -44,5 +44,5 @@ jobs:
             sudo rsync -a --delete ~/site-staging/ $SITE_DIR/ &&
             sudo chown -R nginx:nginx $SITE_DIR &&
             (command -v restorecon >/dev/null && sudo restorecon -R $SITE_DIR || true) &&
-            sudo nginx -t && sudo systemctl reload nginx
+            sudo nginx -t && sudo systemctl reload-or-restart nginx
           "
