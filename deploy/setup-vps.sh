@@ -8,8 +8,6 @@ DOMAIN=ali.cloudordinate.com
 SITE_DIR=/var/www/$DOMAIN
 
 sudo dnf install -y nginx rsync
-sudo dnf install -y "oracle-epel-release-el$(rpm -E %rhel)" || true
-sudo dnf install -y certbot python3-certbot-nginx
 
 sudo mkdir -p "$SITE_DIR"
 sudo cp ~/ali.cloudordinate.com.conf /etc/nginx/conf.d/$DOMAIN.conf
@@ -18,14 +16,15 @@ sudo chown -R nginx:nginx "$SITE_DIR"
 if command -v getenforce >/dev/null && [ "$(getenforce)" != "Disabled" ]; then
   sudo semanage fcontext -a -t httpd_sys_content_t "/var/www(/.*)?" 2>/dev/null || true
   sudo restorecon -R /var/www
+  sudo semanage port -a -t http_port_t -p tcp 8088 2>/dev/null || sudo semanage port -m -t http_port_t -p tcp 8088
 fi
 
-if systemctl is-active --quiet firewalld; then
-  sudo firewall-cmd --permanent --add-service=http --add-service=https
-  sudo firewall-cmd --reload
-fi
+# Move nginx's stock default server off port 80 (owned by Docker).
+sudo sed -i -E 's/listen\s+80;/listen 127.0.0.1:8009;/; s/listen\s+\[::\]:80;/listen [::1]:8009;/' /etc/nginx/nginx.conf
 
-sudo systemctl enable --now nginx
-sudo nginx -t && sudo systemctl reload nginx
+sudo nginx -t
+sudo systemctl enable nginx
+sudo systemctl restart nginx
 
-sudo certbot --nginx -d "$DOMAIN" --non-interactive --agree-tos -m ali@cloudordinate.com --redirect
+# HTTPS is terminated by the existing Docker reverse proxy on 80/443, which forwards to this host on port 8088.
+curl -sI http://127.0.0.1:8088 -H "Host: $DOMAIN" | head -1

@@ -638,7 +638,12 @@
   }
   .client { background: var(--bg-elev); padding: 28px 24px; transition: background 0.3s; }
   .client:hover { background: var(--accent-soft); }
-  .client.featured { grid-column: span 3; padding: 40px; }
+  .client.featured {
+    grid-column: span 3; padding: 40px;
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; align-items: center;
+  }
+  .client-shot { border: 1px solid var(--line); box-shadow: 0 24px 48px -24px rgba(26,24,20,0.3); overflow: hidden; }
+  .client-shot img { width: 100%; display: block; }
   .client-sector { font-size: 10px; color: var(--ink-faint); letter-spacing: 0.15em; margin-bottom: 8px; }
   .client-name { font-family: var(--serif); font-size: 20px; color: var(--ink); }
   .client.featured .client-name { font-size: 30px; margin-bottom: 10px; }
@@ -653,7 +658,7 @@
   @media (max-width: 880px) {
     .deploy-grid { grid-template-columns: 1fr; }
     .clients-grid { grid-template-columns: 1fr; }
-    .client.featured { grid-column: span 1; padding: 28px 24px; }
+    .client.featured { grid-column: span 1; padding: 28px 24px; grid-template-columns: 1fr; gap: 24px; }
   }
 </style>
 </head>
@@ -927,9 +932,12 @@
   </div>
   <div class="clients-grid">
     <div class="client featured">
-      <div class="client-sector">WAREHOUSING · CONTAINER DEPOT</div>
-      <div class="client-name">GCT — Warehousing Software</div>
-      <div class="client-desc">Depot software for container records and container details, with report exports and EIR generation.</div>
+      <div class="client-info">
+        <div class="client-sector">WAREHOUSING · CONTAINER DEPOT</div>
+        <div class="client-name">GCT — Gulf Container Terminal</div>
+        <div class="client-desc">Warehousing and depot software: container records and tracking, EIR printing, booking inquiries, gate control, movements, tariffs and invoicing, and exportable reports.</div>
+      </div>
+      <div class="client-shot"><img loading="lazy" src="assets/projects/gct.png" alt="GCT warehousing software dashboard"></div>
     </div>
     <div class="client"><div class="client-sector">LOGISTICS · DUBAI</div><div class="client-name">Express Connection</div></div>
     <div class="client"><div class="client-sector">LOGISTICS · LISBON</div><div class="client-name">Apogeu</div></div>
