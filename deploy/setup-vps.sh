@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # One-time setup on the Oracle VPS (Oracle Linux). Run as opc:
-#   scp -i <key> deploy/* opc@139.185.40.101:~ && ssh -i <key> opc@139.185.40.101 'bash setup-vps.sh'
+#   scp -i <key> deploy/setup-vps.sh deploy/ali.cloudordinate.com.conf opc@139.185.40.101:~
+#   ssh -i <key> opc@139.185.40.101 "bash setup-vps.sh"
 set -euo pipefail
 
 DOMAIN=ali.cloudordinate.com
